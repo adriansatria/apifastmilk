@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::post('/login', [\App\Http\Controllers\API\AuthUserController::class, 'login']);
+Route::post('/login/sales', [\App\Http\Controllers\API\AuthSalesController::class, 'login']);
 Route::post('/register', [\App\Http\Controllers\API\AuthUserController::class, 'register']);
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
@@ -23,3 +24,4 @@ Route::apiResource('/customers', \App\Http\Controllers\UsersController::class);
 Route::get('/customersdetail', [\App\Http\Controllers\UsersController::class, 'showWithForeignKey']);
 Route::apiResource('/products', \App\Http\Controllers\ProductsController::class);
 Route::apiResource('/categories', \App\Http\Controllers\CategoryController::class);
+Route::apiResource('/sales', \App\Http\Controllers\SalesController::class);

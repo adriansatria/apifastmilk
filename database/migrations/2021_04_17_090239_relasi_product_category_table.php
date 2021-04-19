@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class RelasiUsersProductsTable extends Migration
+class RelasiProductCategoryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,8 @@ class RelasiUsersProductsTable extends Migration
     public function up()
     {
         Schema::table('products', function(Blueprint $table){
-            $table->integer('user_id')->unsigned()->change();
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->integer('categories_product_id')->unsigned()->change();
+            $table->foreign('categories_product_id')->references('id')->on('productscategories')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
@@ -27,9 +27,9 @@ class RelasiUsersProductsTable extends Migration
     public function down()
     {
         Schema::table('products', function(Blueprint $table) {
-            $table->dropForeign('user_id');
-            $table->dropIndex('user_id');
-            $table->integer('user_id')->change();
+            $table->dropForeign('categories_product_id');
+            $table->dropIndex('categories_product_id');
+            $table->integer('categories_product_id')->change();
         });
     }
 }

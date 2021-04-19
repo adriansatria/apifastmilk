@@ -35,12 +35,11 @@ class ProductsController extends BaseController
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'product_sku' => 'required',
             'product_name' => 'required',
             'product_price' => 'required|numeric',
             'product_weight' => 'required',
+            'product_taste' => 'required',
             'description' => 'required',
-            'product_shortdesk' => 'required',
             'product_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'product_stock' => 'required|integer',
         ]);
@@ -54,14 +53,12 @@ class ProductsController extends BaseController
             $image->move(public_path('images'), $imagename);
 
             $products = Products::create([
-                'user_id' => $request->user_id,
                 'categories_product_id' => $request->categories_product_id,
-                'product_sku' => $request->product_sku,
                 'product_name' => $request->product_name,
                 'product_price' => $request->product_price,
                 'product_weight' => $request->product_weight,
+                'product_taste' => $request->product_taste,
                 'description' => $request->description,
-                'product_shortdesk' => $request->product_shortdesk,
                 'product_image' => $imagename,
                 'product_stock' => $request->product_stock,
             ]);
@@ -98,12 +95,11 @@ class ProductsController extends BaseController
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'product_sku' => 'required',
             'product_name' => 'required',
             'product_price' => 'required|numeric',
             'product_weight' => 'required',
+            'product_taste' => 'required',
             'description' => 'required',
-            'product_shortdesk' => 'required',
             // 'product_image' => 'required',
             'product_stock' => 'required|integer',
         ]);
@@ -112,19 +108,18 @@ class ProductsController extends BaseController
             return response()->json(['error'=> 'Data tidak boleh kosong / Isi dengan benar'], 401);            
         }else{  
 
-            if ($request->hasFile('product_image')) {
-                $logo = $request->file('product_image');
-                $fileName = date('Y') . $logo->getClientOriginalExtension();
-                $request->company_logo->storeAs('product_image', $fileName, 'public');
-            }
+            // if ($request->hasFile('product_image')) {
+            //     $logo = $request->file('product_image');
+            //     $fileName = date('Y') . $logo->getClientOriginalExtension();
+            //     $request->company_logo->storeAs('product_image', $fileName, 'public');
+            // }
 
             $products = Products::find($id);
-            $products->product_sku = $request->product_sku;
             $products->product_name = $request->product_name;
             $products->product_price = $request->product_price;
             $products->product_weight = $request->product_weight;
+            $products->product_taste = $request->product_taste;
             $products->description = $request->description;
-            $products->product_shortdesk = $request->product_shortdesk;
             // $products->product_image = $request->product_image;
             $products->product_stock = $request->product_stock;
             $products->save();

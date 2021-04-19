@@ -26,7 +26,6 @@ class AuthUserController extends BaseController
             $response = [
                 'token' => $user->createToken('MyApp')->accessToken,
                 'name' => $user->name,
-                'products' => $user->products
             ];
 
             return $this->SuccessResponse($response, 200, 'Login berhasil');
