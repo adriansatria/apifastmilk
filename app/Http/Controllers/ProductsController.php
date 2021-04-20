@@ -17,12 +17,6 @@ class ProductsController extends BaseController
     {
         $products = Products::all();
 
-        if($products){
-            return $this->SuccessResponse($products, 200, 'Berhasil');
-        }else{
-            return $this->ErrorResponse('Gagal menampilkan data', 422);
-        }
-
         return response()->json($products);
     }
 
@@ -49,8 +43,8 @@ class ProductsController extends BaseController
         }else{  
 
             $image = $request->file('product_image');
-            $imagename = time().'.'.$image->getClientOriginalExtension();
-            $image->move(public_path('images'), $imagename);
+            $imagename = date('Y').'-'.$image->getClientOriginalName();
+            $image->storeAs('images', $imagename);
 
             $products = Products::create([
                 'categories_product_id' => $request->categories_product_id,
@@ -68,10 +62,7 @@ class ProductsController extends BaseController
             }else{
                 return $this->ErrorResponse('Gagal menambah data', 422);
             }
-
         }
-
-        return response()->json($products);
     }
 
     /**
@@ -131,8 +122,6 @@ class ProductsController extends BaseController
             }
 
         }
-
-        return response()->json($products);
     }
 
     /**
@@ -151,7 +140,5 @@ class ProductsController extends BaseController
         }else{
             return $this->ErrorResponse('Gagal menghapus data', 422);
         }
-
-        return response()->json($products);
     }
 }

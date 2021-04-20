@@ -30,8 +30,8 @@ class User extends Authenticatable
         'user_address',
     ];
 
-    public function Products(){
-        return $this->hasMany(Products::class);
+    public function Pesanan(){
+        return $this->hasMany(Pesanan::class);
     }
 
     /**

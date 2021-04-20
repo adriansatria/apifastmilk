@@ -87,7 +87,7 @@ class UsersController extends Controller
      */
     public function showWithForeignKey()
     {
-        $users = \App\Models\User::with(['products'])->get();
+        $users = \App\Models\User::with(['pesanan', 'pesanan.products'])->get();
 
         if($users){
             return response()->json([
@@ -130,7 +130,7 @@ class UsersController extends Controller
             $users = \App\Models\User::find($id);
             $users->name = $request->name;
             $users->email = $request->email;
-            $users->password = $request->password;
+            $users->password = bcrypt($request->password);
             $users->user_city = $request->user_city;
             $users->user_kode_pos = $request->user_kode_pos;
             $users->user_phone = $request->user_phone;
